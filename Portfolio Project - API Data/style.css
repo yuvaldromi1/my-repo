@@ -1,0 +1,238 @@
+:root {
+  --bg: #fdfdfd;
+  --ink: #1a1a1a;
+  --muted: #5f6368;
+  --accent: #d4a373;  /* זהב */
+  --line: #e5e7eb;
+  --card: #ffffff;
+  --shadow: 0 8px 24px rgba(0,0,0,.08);
+  --radius: 18px;
+  --t: .35s cubic-bezier(.2,.6,.2,1);
+}
+
+body {
+  margin: 0;
+  font-family: Heebo, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  display: block;
+  padding: 30px;
+}
+
+.site {
+  width: min(1100px, 94vw);
+  margin: auto;
+  text-align: center;
+}
+
+h1 {
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  font-size: clamp(28px, 4vw, 42px);
+  margin-bottom: 8px;
+}
+h1::after {
+  content: "";
+  display: block;
+  margin: 10px auto 0;
+  width: 90px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 3px;
+}
+
+#drinkForm, .picker {
+  margin: 16px auto;
+  max-width: 520px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+.form-control, .form-select {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  padding: .65rem .9rem;
+  transition: border-color var(--t), box-shadow var(--t);
+}
+.form-control:focus, .form-select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 .15rem rgba(212,163,115,.25);
+  outline: none;
+}
+.btn-success {
+  background: var(--accent);
+  border: none;
+  border-radius: 12px;
+  padding: .6rem 1.1rem;
+  font-weight: 600;
+  transition: transform .2s ease, box-shadow var(--t);
+}
+.btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+
+/* Loader spinner styling */
+#loader {
+  margin: 24px auto;
+  text-align: center;
+}
+
+/* Button spacing */
+#clearBtn {
+  margin-left: 8px;
+}
+
+#drinkInfo {
+  margin-top: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+}
+.drink-card {
+  max-height: 400px;
+  overflow-y: auto;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  border-radius: 12px;
+  background: #fff;
+  padding: 16px;
+  position: relative;
+  top: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) #eee;
+}
+
+/* Scrollbar styles for WebKit browsers */
+.drink-card::-webkit-scrollbar {
+  width: 8px;
+}
+.drink-card::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 8px;
+}
+.drink-card::-webkit-scrollbar-track {
+  background: #eee;
+  border-radius: 8px;
+}
+
+/* Remove any absolute/fixed positioning that may cause overlap */
+.card.drink-card {
+  position: static;
+}
+
+/* ===== כרטיסים ===== */
+.card.drink-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--card);
+  box-shadow: var(--shadow);
+  transition: transform .25s ease, box-shadow .35s ease;
+}
+.card.drink-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 16px 32px rgba(0,0,0,.15);
+}
+
+/* תמונה עם אנימציה */
+.drink-card .media {
+  overflow: hidden;
+  height: 200px;
+  transition: height var(--t);
+}
+.drink-card .media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--t);
+}
+.drink-card:hover .media {
+  height: 260px;
+}
+.drink-card:hover .media img {
+  transform: scale(1.1);
+}
+
+/* תוכן בסיסי */
+.drink-card .content {
+  padding: 12px 16px;
+  margin-bottom: 12px;
+}
+.drink-card .card-title {
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  font-size: 20px;
+  margin: 0 0 6px;
+}
+.drink-card .meta {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* תוכן נחשף */
+.drink-card .reveal {
+  padding: 0 16px 14px;
+  border-top: 1px dashed var(--line);
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: max-height .5s ease, opacity .35s ease, transform .35s ease;
+  margin-top: 12px;
+}
+.drink-card:hover .reveal {
+  max-height: 220px;
+  opacity: 1;
+  transform: translateY(0);
+}
+.drink-card .reveal h6 {
+  margin: 10px 0 6px;
+  font-weight: 700;
+}
+.drink-card .reveal ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  text-align: left;
+}
+.drink-card .reveal li {
+  margin: .15rem 0;
+}
+
+/* Make only the content inside the drink card scrollable */
+.drink-card {
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  border-radius: 12px;
+  background: #fff;
+  padding: 16px;
+  position: relative;
+  top: 0;
+}
+.drink-card .content, .drink-card .reveal {
+  max-height: 220px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) #eee;
+}
+.drink-card .content::-webkit-scrollbar,
+.drink-card .reveal::-webkit-scrollbar {
+  width: 8px;
+}
+.drink-card .content::-webkit-scrollbar-thumb,
+.drink-card .reveal::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 8px;
+}
+.drink-card .content::-webkit-scrollbar-track,
+.drink-card .reveal::-webkit-scrollbar-track {
+  background: #eee;
+  border-radius: 8px;
+}
